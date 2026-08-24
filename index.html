@@ -695,33 +695,39 @@
 
                             <!-- Step 2 (Hidden initially) -->
                             <div id="step2" class="hidden">
+                                <div class="text-center mb-6">
+                                    <h3 class="text-2xl font-poppins font-bold text-white mb-2">Quase lá!</h3>
+                                    <p class="text-gray-300 text-sm">Últimas informações para garantir sua vaga</p>
+                                </div>
                                 <div class="space-y-4">
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-300 mb-1">Qual seu principal objetivo?</label>
+                                        <label class="block text-sm font-bold text-white mb-2">Qual o seu objetivo? *</label>
                                         <select id="objetivo" required class="w-full bg-dark/50 border border-gray-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none">
-                                            <option value="" disabled selected>Selecione uma opção</option>
-                                            <option value="concurso">Pontuação em Concurso Público</option>
-                                            <option value="promocao">Promoção / Aumento de Salário</option>
-                                            <option value="conhecimento">Busca por Conhecimento</option>
-                                            <option value="outro">Outro</option>
+                                            <option value="" disabled selected>Selecione seu objetivo</option>
+                                            <option value="Concurso Público">Concurso Público</option>
+                                            <option value="Vaga Específica">Vaga Específica</option>
+                                            <option value="Conhecimento/Aprendizado">Conhecimento/Aprendizado</option>
+                                            <option value="Aumento Salarial">Aumento Salarial</option>
+                                            <option value="Progressão de Carreira">Progressão de Carreira</option>
+                                            <option value="Titulação de Especialista">Titulação de Especialista</option>
+                                            <option value="Adicional de Qualificação">Adicional de Qualificação</option>
+                                            <option value="Apenas Pesquisando">Apenas Pesquisando</option>
+                                            <option value="Sou aluno e quero Suporte">Sou aluno e quero Suporte</option>
+                                            <option value="Quero pedir meu certificado">Quero pedir meu certificado</option>
                                         </select>
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-300 mb-1">Área de Graduação</label>
+                                        <label class="block text-sm font-bold text-white mb-2">Possui alguma graduação? *</label>
                                         <select id="graduacao" required class="w-full bg-dark/50 border border-gray-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary appearance-none">
-                                            <option value="" disabled selected>Selecione sua área</option>
-                                            <option value="educacao">Educação / Pedagogia</option>
-                                            <option value="direito">Direito / Jurídica</option>
-                                            <option value="saude">Saúde</option>
-                                            <option value="administracao">Administração / Negócios</option>
-                                            <option value="tecnologia">Tecnologia</option>
-                                            <option value="engenharia">Engenharia</option>
-                                            <option value="outra">Outra</option>
+                                            <option value="" disabled selected>Selecione sua escolaridade</option>
+                                            <option value="Ensino Médio Completo">Ensino Médio Completo</option>
+                                            <option value="Graduação Incompleta">Graduação Incompleta</option>
+                                            <option value="Graduação Completa">Graduação Completa</option>
                                         </select>
                                     </div>
-                                    <div class="flex gap-3 mt-4">
-                                        <button type="button" onclick="prevStep()" class="w-1/3 glass border border-gray-600 py-4 rounded-xl font-bold">VOLTAR</button>
-                                        <button type="button" onclick="submitForm()" class="w-2/3 btn-danger py-4 rounded-xl font-bold shadow-lg shadow-red-500/30">GARANTIR AGORA!</button>
+                                    <div class="flex gap-3 mt-6">
+                                        <button type="button" onclick="prevStep()" class="w-1/3 glass border border-gray-600 py-4 rounded-xl font-bold flex items-center justify-center gap-2 text-sm"><i class="fas fa-arrow-left"></i> VOLTAR</button>
+                                        <button type="button" onclick="submitForm()" class="w-2/3 btn-danger py-4 rounded-xl font-bold shadow-lg shadow-red-500/30 text-sm">GARANTIR AGORA!</button>
                                     </div>
                                 </div>
                             </div>
