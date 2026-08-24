@@ -1,4 +1,4 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { OpenAI } = require("openai");
 
 module.exports = async function handler(req, res) {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -13,34 +13,44 @@ module.exports = async function handler(req, res) {
         return res.status(405).json({ error: "Method not allowed" });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
-        return res.status(500).json({ error: "GEMINI_API_KEY nao esta configurada nas variaveis de ambiente do Vercel." });
+        return res.status(500).json({ error: "OPENAI_API_KEY nao esta configurada nas variaveis de ambiente do Vercel." });
     }
 
     try {
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
+        const openai = new OpenAI({ apiKey });
         const { contents } = req.body;
 
-        const chat = model.startChat({
-            history: contents.slice(0, -1).map(c => ({
-                role: c.role,
-                parts: c.parts
-            }))
+        // Converter histórico do formato antigo (Gemini) para o formato do ChatGPT (OpenAI)
+        const messages = contents.map(c => ({
+            role: c.role === 'model' ? 'assistant' : 'user',
+            content: c.parts[0].text
+        }));
+
+        // Adiciona a instrução do bot para o ChatGPT
+        messages.unshift({
+            role: 'system',
+            content: 'Você é um assistente virtual da Faculdade Uniminas EAD. Responda de forma curta, amigável e persuasiva. Você ajuda com dúvidas sobre pós-graduação, cursos, certificados reconhecidos pelo MEC e conclusão em 3 meses.'
         });
 
-        const lastMessage = contents[contents.length - 1].parts[0].text;
-        const result = await chat.sendMessage(lastMessage);
-        const text = result.response.text();
+        // Chama a API da OpenAI (ChatGPT)
+        const completion = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo",
+            messages: messages,
+            temperature: 0.7,
+            max_tokens: 250
+        });
 
+        const text = completion.choices[0].message.content;
+
+        // Retorna no formato que o frontend já espera
         return res.status(200).json({
             candidates: [{ content: { parts: [{ text: text }] } }]
         });
 
     } catch (error) {
-        console.error("Gemini SDK Error:", error.message);
-        return res.status(500).json({ error: error.message || "Erro interno na SDK do Gemini." });
+        console.error("OpenAI Error:", error.message);
+        return res.status(500).json({ error: error.message || "Erro interno na API do ChatGPT." });
     }
 };
