@@ -1541,7 +1541,7 @@
                     
                     if (!response.ok) {
                         console.error("Gemini API Error:", data);
-                        throw new Error(data.error?.message || "Erro desconhecido na API");
+                        const errorMsg = typeof data.error === "string" ? data.error : (data.error?.message || "Erro na API"); throw new Error(errorMsg);
                     }
 
                     const botReply = data.candidates[0].content.parts[0].text;
